@@ -1,0 +1,58 @@
+﻿@model EXFIN.Models.AlumnoClass
+
+@{
+    ViewBag.Title = "Detalle Alumno";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<div>
+    <h4>Alumno</h4>
+    <hr />
+    <dl class="dl-horizontal table-bordered">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Apellido)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Apellido)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Carnet)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Carnet)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.IdCurso)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.IdCurso)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Estado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Estado)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn btn-warning" }) |
+    @Html.ActionLink("Regresar", "Index", "",new { @class = "btn btn-default" })
+</p>

@@ -1,0 +1,313 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EFModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="ALUMNOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" />
+          <Property Name="APELLIDOS" Type="varchar" MaxLength="50" />
+          <Property Name="CARNET" Type="varchar" MaxLength="50" />
+          <Property Name="IDCURSO" Type="int" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="1" />
+        </EntityType>
+        <EntityType Name="CURSO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOMBRE" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="NOTAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NOTA" Type="int" />
+          <Property Name="IDCURSO" Type="int" />
+          <Property Name="ESTADO" Type="varchar" MaxLength="9" StoreGeneratedPattern="Computed" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_ALUMNOS_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="0..1" />
+          <End Role="ALUMNOS" Type="Self.ALUMNOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ALUMNOS">
+              <PropertyRef Name="IDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTAS_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="0..1" />
+          <End Role="NOTAS" Type="Self.NOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NOTAS">
+              <PropertyRef Name="IDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="SP_AL_ACTIVO" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="SP_ALUMNOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="APELLIDO" Type="varchar" Mode="In" />
+          <Parameter Name="CARNET" Type="varchar" Mode="In" />
+          <Parameter Name="IDCURSO" Type="int" Mode="In" />
+          <Parameter Name="ESTADO" Type="varchar" Mode="In" />
+          <Parameter Name="OPTIONS" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_CURSOS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="NOMBRE" Type="varchar" Mode="In" />
+          <Parameter Name="OPTIONS" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="SP_NOTA" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID" Type="int" Mode="In" />
+          <Parameter Name="NOTA" Type="int" Mode="In" />
+          <Parameter Name="IDCURSO" Type="int" Mode="In" />
+          <Parameter Name="OPTIONS" Type="varchar" Mode="In" />
+        </Function>
+        <EntityContainer Name="EFModelStoreContainer">
+          <EntitySet Name="ALUMNOS" EntityType="Self.ALUMNOS" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="CURSO" EntityType="Self.CURSO" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NOTAS" EntityType="Self.NOTAS" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_ALUMNOS_CURSO" Association="Self.FK_ALUMNOS_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="ALUMNOS" EntitySet="ALUMNOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTAS_CURSO" Association="Self.FK_NOTAS_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="NOTAS" EntitySet="NOTAS" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EFModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="ALUMNOS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="APELLIDOS" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CARNET" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IDCURSO" Type="Int32" />
+          <Property Name="ESTADO" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="CURSO" Relationship="Self.FK_ALUMNOS_CURSO" FromRole="ALUMNOS" ToRole="CURSO" />
+        </EntityType>
+        <EntityType Name="CURSO">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOMBRE" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="ALUMNOS" Relationship="Self.FK_ALUMNOS_CURSO" FromRole="CURSO" ToRole="ALUMNOS" />
+          <NavigationProperty Name="NOTAS" Relationship="Self.FK_NOTAS_CURSO" FromRole="CURSO" ToRole="NOTAS" />
+        </EntityType>
+        <EntityType Name="NOTAS">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NOTA" Type="Int32" />
+          <Property Name="IDCURSO" Type="Int32" />
+          <Property Name="ESTADO" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" annotation:StoreGeneratedPattern="Computed" />
+          <NavigationProperty Name="CURSO" Relationship="Self.FK_NOTAS_CURSO" FromRole="NOTAS" ToRole="CURSO" />
+        </EntityType>
+        <Association Name="FK_ALUMNOS_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="0..1" />
+          <End Role="ALUMNOS" Type="Self.ALUMNOS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="ALUMNOS">
+              <PropertyRef Name="IDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_NOTAS_CURSO">
+          <End Role="CURSO" Type="Self.CURSO" Multiplicity="0..1" />
+          <End Role="NOTAS" Type="Self.NOTAS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="CURSO">
+              <PropertyRef Name="ID" />
+            </Principal>
+            <Dependent Role="NOTAS">
+              <PropertyRef Name="IDCURSO" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="EFEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="ALUMNOS" EntityType="Self.ALUMNOS" />
+          <EntitySet Name="CURSO" EntityType="Self.CURSO" />
+          <EntitySet Name="NOTAS" EntityType="Self.NOTAS" />
+          <AssociationSet Name="FK_ALUMNOS_CURSO" Association="Self.FK_ALUMNOS_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="ALUMNOS" EntitySet="ALUMNOS" />
+          </AssociationSet>
+          <AssociationSet Name="FK_NOTAS_CURSO" Association="Self.FK_NOTAS_CURSO">
+            <End Role="CURSO" EntitySet="CURSO" />
+            <End Role="NOTAS" EntitySet="NOTAS" />
+          </AssociationSet>
+          <FunctionImport Name="SP_ALUMNOS" ReturnType="Collection(EFModel.SP_ALUMNOS_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="APELLIDO" Mode="In" Type="String" />
+            <Parameter Name="CARNET" Mode="In" Type="String" />
+            <Parameter Name="IDCURSO" Mode="In" Type="Int32" />
+            <Parameter Name="ESTADO" Mode="In" Type="String" />
+            <Parameter Name="OPTIONS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_CURSOS" ReturnType="Collection(EFModel.SP_CURSOS_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="NOMBRE" Mode="In" Type="String" />
+            <Parameter Name="OPTIONS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_NOTA" ReturnType="Collection(EFModel.SP_NOTA_Result)">
+            <Parameter Name="ID" Mode="In" Type="Int32" />
+            <Parameter Name="NOTA" Mode="In" Type="Int32" />
+            <Parameter Name="IDCURSO" Mode="In" Type="Int32" />
+            <Parameter Name="OPTIONS" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="SP_AL_ACTIVO" ReturnType="Collection(EFModel.SP_AL_ACTIVO_Result)" />
+        </EntityContainer>
+        <ComplexType Name="SP_ALUMNOS_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="APELLIDOS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CARNET" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="IDCURSO" Nullable="true" />
+          <Property Type="String" Name="ESTADO" Nullable="true" MaxLength="1" />
+        </ComplexType>
+        <ComplexType Name="SP_CURSOS_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="SP_NOTA_Result">
+          <Property Type="Int32" Name="ID" Nullable="false" />
+          <Property Type="Int32" Name="NOTA" Nullable="true" />
+          <Property Type="Int32" Name="IDCURSO" Nullable="true" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="9" />
+        </ComplexType>
+        <ComplexType Name="SP_AL_ACTIVO_Result">
+          <Property Type="String" Name="NOMBRE" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="APELLIDOS" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="CARNET" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE1" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="NOTA" Nullable="true" />
+          <Property Type="String" Name="ESTADO" Nullable="false" MaxLength="9" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EFModelStoreContainer" CdmEntityContainer="EFEntities">
+          <EntitySetMapping Name="ALUMNOS">
+            <EntityTypeMapping TypeName="EFModel.ALUMNOS">
+              <MappingFragment StoreEntitySet="ALUMNOS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="CARNET" ColumnName="CARNET" />
+                <ScalarProperty Name="IDCURSO" ColumnName="IDCURSO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="CURSO">
+            <EntityTypeMapping TypeName="EFModel.CURSO">
+              <MappingFragment StoreEntitySet="CURSO">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NOTAS">
+            <EntityTypeMapping TypeName="EFModel.NOTAS">
+              <MappingFragment StoreEntitySet="NOTAS">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOTA" ColumnName="NOTA" />
+                <ScalarProperty Name="IDCURSO" ColumnName="IDCURSO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="SP_ALUMNOS" FunctionName="EFModel.Store.SP_ALUMNOS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EFModel.SP_ALUMNOS_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="CARNET" ColumnName="CARNET" />
+                <ScalarProperty Name="IDCURSO" ColumnName="IDCURSO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_CURSOS" FunctionName="EFModel.Store.SP_CURSOS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EFModel.SP_CURSOS_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_NOTA" FunctionName="EFModel.Store.SP_NOTA">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EFModel.SP_NOTA_Result">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="NOTA" ColumnName="NOTA" />
+                <ScalarProperty Name="IDCURSO" ColumnName="IDCURSO" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="SP_AL_ACTIVO" FunctionName="EFModel.Store.SP_AL_ACTIVO">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="EFModel.SP_AL_ACTIVO_Result">
+                <ScalarProperty Name="NOMBRE" ColumnName="NOMBRE" />
+                <ScalarProperty Name="APELLIDOS" ColumnName="APELLIDOS" />
+                <ScalarProperty Name="CARNET" ColumnName="CARNET" />
+                <ScalarProperty Name="NOMBRE1" ColumnName="NOMBRE1" />
+                <ScalarProperty Name="NOTA" ColumnName="NOTA" />
+                <ScalarProperty Name="ESTADO" ColumnName="ESTADO" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

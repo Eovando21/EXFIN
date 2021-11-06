@@ -1,0 +1,39 @@
+﻿@model IEnumerable<EXFIN.Models.ReprobadoClass>
+
+
+
+<h2>LISTADO DE ESTUDIANTES REPROBADOS</h2>
+<center>
+    <table class="table  table-striped">
+
+        <tr>
+            <th>NOMBRE</th>
+            <th>APELLIDOS</th>
+            <th>CARNET</th>
+            <th>CUSO</th>
+            <th>NOTA</th>
+            <th>ESTADO</th>
+            <th>ESTATUS</th>
+
+        </tr>
+
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.getalumnos.NOMBRE</td>
+                <td>@item.getalumnos.APELLIDOS</td>
+                <td>@item.getalumnos.CARNET</td>
+                <td>@item.getcurso.NOMBRE</td>
+                <td>@item.getnotas.NOTA</td>
+                <td>@item.getnotas.ESTADO</td>
+                <td>@item.getalumnos.ESTADO</td>
+
+                <td>
+                </td>
+            </tr>
+        }
+
+    </table>
+</center>
